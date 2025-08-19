@@ -1,0 +1,209 @@
+import { Property, Bid, Notification } from '../types';
+
+export const mockProperties: Property[] = [
+  {
+    id: '1',
+    title: 'Luxury Downtown Penthouse',
+    description: 'Stunning 3-bedroom penthouse with panoramic city views, premium finishes, and private rooftop terrace.',
+    type: 'residential',
+    images: [
+      'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
+    location: 'Manhattan, NY',
+    startingPrice: 850000,
+    currentPrice: 950000,
+    bidType: 'live',
+    status: 'active',
+    sellerId: 'seller1',
+    sellerName: 'Premium Properties LLC',
+    endDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+    createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+    totalBids: 12,
+    features: ['City View', 'Rooftop Terrace', 'Luxury Finishes', 'Concierge Service']
+  },
+  {
+    id: '2',
+    title: 'Modern Office Building',
+    description: 'Prime commercial property in the business district with excellent rental potential.',
+    type: 'commercial',
+    images: [
+      'https://images.pexels.com/photos/273209/pexels-photo-273209.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
+    location: 'Financial District, SF',
+    startingPrice: 2500000,
+    currentPrice: 2750000,
+    bidType: 'sealed',
+    status: 'active',
+    sellerId: 'seller2',
+    sellerName: 'Commercial Realty Group',
+    endDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+    createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
+    totalBids: 8
+  },
+  {
+    id: '3',
+    title: '2023 Tesla Model S Plaid',
+    description: 'Low mileage, pristine condition luxury electric vehicle with autopilot and premium interior.',
+    type: 'car',
+    images: [
+      'https://images.pexels.com/photos/35967/mini-cooper-auto-model-vehicle.jpg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
+    location: 'Los Angeles, CA',
+    startingPrice: 89000,
+    currentPrice: 95000,
+    bidType: 'live',
+    status: 'active',
+    sellerId: 'seller3',
+    sellerName: 'Elite Auto Sales',
+    endDate: new Date(Date.now() + 12 * 60 * 60 * 1000).toISOString(),
+    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    totalBids: 15,
+    specifications: {
+      'Year': '2023',
+      'Make': 'Tesla',
+      'Model': 'Model S Plaid',
+      'Mileage': '8,500 miles',
+      'Color': 'Pearl White'
+    }
+  },
+  {
+    id: '4',
+    title: 'Waterfront Development Land',
+    description: '50 acres of prime waterfront land perfect for residential or commercial development.',
+    type: 'land',
+    images: [
+      'https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
+    location: 'Miami Beach, FL',
+    startingPrice: 5000000,
+    currentPrice: 5200000,
+    bidType: 'fixed',
+    status: 'active',
+    sellerId: 'seller4',
+    sellerName: 'Coastal Development Group',
+    endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+    createdAt: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString(),
+    totalBids: 3
+  },
+  {
+    id: '5',
+    title: 'Gaming PC - RTX 4090 Build',
+    description: 'High-end gaming computer with latest RTX 4090, 32GB RAM, and custom liquid cooling.',
+    type: 'electronics',
+    images: [
+      'https://images.pexels.com/photos/2399840/pexels-photo-2399840.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/821651/pexels-photo-821651.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
+    location: 'Austin, TX',
+    startingPrice: 3500,
+    currentPrice: 4200,
+    bidType: 'live',
+    status: 'active',
+    sellerId: 'seller5',
+    sellerName: 'Tech Enthusiast',
+    endDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString(),
+    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+    totalBids: 28,
+    specifications: {
+      'GPU': 'RTX 4090',
+      'CPU': 'Intel i9-13900K',
+      'RAM': '32GB DDR5',
+      'Storage': '2TB NVMe SSD',
+      'Cooling': 'Custom Liquid Loop'
+    }
+  },
+  {
+    id: '6',
+    title: '1965 Vintage Gibson Les Paul',
+    description: 'Rare vintage Gibson Les Paul Standard in excellent condition with original case.',
+    type: 'vintage',
+    images: [
+      'https://images.pexels.com/photos/1751731/pexels-photo-1751731.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/1407322/pexels-photo-1407322.jpeg?auto=compress&cs=tinysrgb&w=800'
+    ],
+    location: 'Nashville, TN',
+    startingPrice: 15000,
+    currentPrice: 18500,
+    bidType: 'sealed',
+    status: 'active',
+    sellerId: 'seller6',
+    sellerName: 'Vintage Instruments Collector',
+    endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+    createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+    totalBids: 6,
+    specifications: {
+      'Year': '1965',
+      'Model': 'Les Paul Standard',
+      'Color': 'Sunburst',
+      'Condition': 'Excellent',
+      'Includes': 'Original Hard Case'
+    }
+  }
+];
+
+export const mockBids: Bid[] = [
+  {
+    id: '1',
+    propertyId: '1',
+    bidderId: 'bidder1',
+    bidderName: 'Alice Johnson',
+    amount: 950000,
+    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+    type: 'live',
+    status: 'winning'
+  },
+  {
+    id: '2',
+    propertyId: '1',
+    bidderId: 'bidder2',
+    bidderName: 'Bob Smith',
+    amount: 920000,
+    timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
+    type: 'live',
+    status: 'outbid'
+  },
+  {
+    id: '3',
+    propertyId: '3',
+    bidderId: 'bidder3',
+    bidderName: 'Carol Davis',
+    amount: 95000,
+    timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
+    type: 'live',
+    status: 'winning'
+  }
+];
+
+export const mockNotifications: Notification[] = [
+  {
+    id: '1',
+    type: 'outbid',
+    title: 'You\'ve been outbid!',
+    message: 'Someone placed a higher bid on Luxury Downtown Penthouse',
+    timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
+    read: false,
+    propertyId: '1'
+  },
+  {
+    id: '2',
+    type: 'ending_soon',
+    title: 'Auction ending soon',
+    message: '2023 Tesla Model S Plaid auction ends in 12 hours',
+    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+    read: false,
+    propertyId: '3'
+  },
+  {
+    id: '3',
+    type: 'bid_placed',
+    title: 'Bid placed successfully',
+    message: 'Your bid of $95,000 on 2023 Tesla Model S Plaid has been placed',
+    timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(),
+    read: true,
+    propertyId: '3'
+  }
+];

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
 import { AppState, Property, Bid, Notification, BiddingRoom } from '../types';
-import { mockProperties, mockBids, mockNotifications } from '../data/mockData';
+import { mockProperties, mockBids, mockNotifications } from "./data/mockData";
 
 interface AppContextType extends AppState {
   dispatch: React.Dispatch<AppAction>;

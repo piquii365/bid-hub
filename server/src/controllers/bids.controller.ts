@@ -4,7 +4,7 @@ import { handleError } from "../utils/error.util.ts";
 export const getBids = async (req: express.Request, res: express.Response) => {
   console.log("Fetching bids...");
   try {
-    {
+   
       const bids = [
         {
           id: "bid_001",
@@ -233,7 +233,6 @@ export const getBids = async (req: express.Request, res: express.Response) => {
         },
       ];
       res.status(200).json(bids);
-    }
   } catch (error) {
     handleError(res, error);
   }

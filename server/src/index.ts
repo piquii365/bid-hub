@@ -37,6 +37,7 @@ app.use(
         imgSrc: ["'self'", "'data'", "http://localhost:3500"],
       },
     },
+    crossOriginEmbedderPolicy: false,
   })
 );
 
@@ -45,7 +46,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/api", generalLimiter, routes);
+app.use("/api", generalLimiter, routes());
 
 const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);

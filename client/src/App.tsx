@@ -18,6 +18,16 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import Cookies from "./pages/Cookies";
+import Disclaimer from "./pages/Disclaimer";
+import HowItWorks from "./pages/HowItWorks";
+import Press from "./pages/Press";
+import Pricing from "./pages/Pricing";
+import Help from "./pages/Help";
+import Safety from "./pages/Safety";
+import Guidelines from "./pages/Guidelines";
 
 // Create the router configuration
 const router = createBrowserRouter([
@@ -79,6 +89,46 @@ const router = createBrowserRouter([
             <AddProperty />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "/terms",
+        element: <Terms />,
+      },
+      {
+        path: "/privacy",
+        element: <Privacy />,
+      },
+      {
+        path: "/cookies",
+        element: <Cookies />,
+      },
+      {
+        path: "/disclaimer",
+        element: <Disclaimer />,
+      },
+      {
+        path: "/how-it-works",
+        element: <HowItWorks />,
+      },
+      {
+        path: "/press",
+        element: <Press />,
+      },
+      {
+        path: "/pricing",
+        element: <Pricing />,
+      },
+      {
+        path: "/help",
+        element: <Help />,
+      },
+      {
+        path: "/safety",
+        element: <Safety />,
+      },
+      {
+        path: "/guidelines",
+        element: <Guidelines />,
       },
     ],
   },

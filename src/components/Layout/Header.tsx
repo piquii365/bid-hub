@@ -15,3 +15,5 @@
        setSearchQuery("");
      }
    };
+
+export default handleSearch

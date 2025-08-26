@@ -4,10 +4,7 @@ import { handleError } from "../utils/error.util.ts";
 import { validationResult } from "express-validator";
 import { sanitizeInput } from "../middleware/validation.middleware.ts";
 
-const serviceAccount = await import("../../serviceAccount.json", {
-  assert: { type: "json" },
-});
-admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+
 
 export const login = async (req: express.Request, res: express.Response) => {
   try {
@@ -45,44 +42,12 @@ export const login = async (req: express.Request, res: express.Response) => {
 };
 
 export const signup = async (req: express.Request, res: express.Response) => {
+  console.log(req.body);
   try {
-    // Check for validation errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        success: false,
-        message: 'Validation failed',
-        errors: errors.array()
-      });
-    }
-
     const { name, email, password, role } = req.body;
-    
-    // Sanitize inputs
-    const sanitizedName = sanitizeInput(name);
-    const sanitizedEmail = sanitizeInput(email);
-    const sanitizedPassword = sanitizeInput(password);
-    
-    // Create user with Firebase Admin
-    const useResponse = await admin.auth().createUser({
-      email: sanitizedEmail,
-      password: sanitizedPassword,
-      displayName: sanitizedName,
-      emailVerified: false,
-    });
-    
-    // Here you would typically save additional user data to your database
-    // including the role and other profile information
-    
     res.status(201).json({
       success: true,
-      message: 'User created successfully',
-      user: {
-        id: useResponse.uid,
-        name: sanitizedName,
-        email: sanitizedEmail,
-        role: role,
-      }
+      message: "User created successfully",
     });
   } catch (error) {
     handleError(res, error);

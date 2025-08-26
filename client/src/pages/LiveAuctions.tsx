@@ -110,13 +110,7 @@ export default function LiveAuctions() {
       {/* Hero Section */}
       <section className={`relative py-20`}>
         <div className="absolute inset-0 bg-[url('/property-bidding.jpg')] bg-cover bg-center bg-no-repeat z-0"></div>
-        <div
-          className={`absolute inset-0 bg-grid-pattern ${
-            theme === "dark"
-              ? "bg-gradient-to-br from-gray-900/60 via-red-900/60 to-orange-900/60"
-              : "bg-gradient-to-br from-red-50/30 via-orange-50/30 to-yellow-50/30"
-          } z-0`}
-        ></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-purple-900/80 to-blue-900/90"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  z-10">
           <div className="text-center">
             <div className="flex items-center justify-center space-x-2 mb-4">
@@ -141,7 +135,7 @@ export default function LiveAuctions() {
             </h1>
             <p
               className={`text-xl mb-8 max-w-3xl mx-auto ${
-                theme === "dark" ? "text-gray-300" : "text-gray-600"
+                theme === "dark" ? "text-gray-300" : "text-white"
               }`}
             >
               Experience the thrill of real-time bidding. Join live auctions

@@ -1,8 +1,8 @@
 import axios from "axios";
 import type { Bid } from "./types";
 
-const BASE_URL = "http://localhost:5000/api";
-export const PUBLIC_URL = "http://localhost:5000";
+const BASE_URL = "http://localhost:3500/api";
+export const PUBLIC_URL = "http://localhost:3500";
 
 const API = axios.create({
   baseURL: BASE_URL,
@@ -17,9 +17,8 @@ API.interceptors.request.use(
     if (userString) {
       try {
         const user = JSON.parse(userString);
-        if (user && user.token) {
-          console.log(user.token);
-          config.headers.Authorization = `Bearer ${user.token}`;
+        if (user && user.accessToken) {
+          config.headers.Authorization = `Bearer ${user.accessToken}`;
         }
       } catch (error) {
         console.error("Error parsing user data from sessionStorage:", error);

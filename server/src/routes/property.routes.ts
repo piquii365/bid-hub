@@ -1,8 +1,8 @@
 import express from "express";
-import { getBids } from "../controllers/bids.controller.ts";
+import { addProperty } from "../controllers/property.controller.ts";
 import { decodeToken } from "../middleware/auth.middleware.ts";
 
 export default (router: express.Router): express.Router => {
-  router.route("/bids").get(decodeToken, getBids);
+  router.route("/add-property").post(addProperty);
   return router;
 };

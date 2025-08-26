@@ -99,6 +99,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const loginWithGoogle = async () => {
     dispatch({ type: "SET_LOADING", payload: true });
     const provider = new GoogleAuthProvider();
+    provider.addScope("profile");
+    provider.addScope("email");
     signInWithPopup(auth, provider)
       .then(async ({ user }) => {
         const currentUser: User = {
@@ -116,7 +118,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         dispatch({ type: "SET_USER", payload: currentUser });
       })
       .catch((error) => {
-        console.error("Error during Google login:", error);
+        console.error(error);
       })
       .finally(() => {
         dispatch({ type: "SET_LOADING", payload: false });

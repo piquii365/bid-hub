@@ -192,9 +192,16 @@ export default function LoginForm() {
             {/* Transparent Form Container */}
             <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 p-8">
               {/* Logo */}
-              <div className="flex items-center justify-center space-x-3 mb-8">
-                <div className="p-2 rounded-lg bg-blue-600">
-                  <Gavel className="h-6 w-6 text-white" />
+              <a
+                href="/"
+                className="flex items-center justify-center space-x-3 mb-8"
+              >
+                <div>
+                  <img
+                    src="/logo.png"
+                    alt="logo"
+                    className="w-8 h-8 mix-blend-multiply"
+                  />
                 </div>
                 <span
                   className={`text-2xl font-bold ${
@@ -203,7 +210,7 @@ export default function LoginForm() {
                 >
                   BidHub
                 </span>
-              </div>
+              </a>
 
               <div className="text-center mb-8">
                 <h2

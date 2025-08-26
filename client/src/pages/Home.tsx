@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Search,
@@ -15,7 +15,7 @@ import { useApp } from "../context/AppContext";
 import PropertyGrid from "../components/Properties/PropertyGrid";
 import PropertyFilters from "../components/Properties/PropertyFilters";
 
-export default function Home() {
+const Home: React.FC = () => {
   const { properties, theme } = useApp();
   const [filters, setFilters] = useState<any>({});
   const [searchTerm, setSearchTerm] = useState("");
@@ -395,4 +395,6 @@ export default function Home() {
       </section>
     </div>
   );
-}
+};
+
+export default Home;

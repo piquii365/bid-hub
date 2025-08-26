@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, ReactNode, useCallback, useMemo } from 'react';
 import { AppState, Property, Bid, Notification, BiddingRoom } from '../types';
 import { mockProperties, mockBids, mockNotifications } from "./data/mockData";
 
@@ -38,29 +38,24 @@ function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
     case 'SET_PROPERTIES':
       return { ...state, properties: action.payload };
-    
     case 'ADD_PROPERTY':
       return { ...state, properties: [...state.properties, action.payload] };
-    
     case 'UPDATE_PROPERTY':
       return {
         ...state,
-        properties: state.properties.map(p => 
+        properties: state.properties.map(p =>
           p.id === action.payload.id ? action.payload : p
         )
       };
-    
     case 'ADD_BID':
       return { ...state, bids: [...state.bids, action.payload] };
-    
     case 'UPDATE_BID':
       return {
         ...state,
-        bids: state.bids.map(b => 
+        bids: state.bids.map(b =>
           b.id === action.payload.id ? action.payload : b
         )
       };
-    
     case 'SET_BIDDING_ROOM':
       return {
         ...state,
@@ -69,13 +64,11 @@ function appReducer(state: AppState, action: AppAction): AppState {
           [action.payload.propertyId]: action.payload.room
         }
       };
-    
     case 'ADD_NOTIFICATION':
       return {
         ...state,
         notifications: [action.payload, ...state.notifications]
       };
-    
     case 'MARK_NOTIFICATION_READ':
       return {
         ...state,
@@ -83,16 +76,12 @@ function appReducer(state: AppState, action: AppAction): AppState {
           n.id === action.payload ? { ...n, read: true } : n
         )
       };
-    
     case 'TOGGLE_THEME':
       return { ...state, theme: state.theme === 'light' ? 'dark' : 'light' };
-    
     case 'SET_LOADING':
       return { ...state, loading: action.payload };
-    
     case 'SET_ERROR':
       return { ...state, error: action.payload };
-    
     default:
       return state;
   }
@@ -106,7 +95,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // Simulate real-time updates
   useEffect(() => {
     const interval = setInterval(() => {
-      // Simulate bidding room updates
       Object.keys(state.biddingRooms).forEach(propertyId => {
         const room = state.biddingRooms[propertyId];
         if (room.isActive && room.timeRemaining > 0) {
@@ -127,7 +115,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return () => clearInterval(interval);
   }, [state.biddingRooms]);
 
-  const placeBid = (propertyId: string, amount: number) => {
+  // Memoize these actions!
+  const placeBid = useCallback((propertyId: string, amount: number) => {
     const property = state.properties.find(p => p.id === propertyId);
     if (!property) return;
 
@@ -143,8 +132,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
 
     dispatch({ type: 'ADD_BID', payload: newBid });
-    
-    // Update property current price
+
     dispatch({
       type: 'UPDATE_PROPERTY',
       payload: {
@@ -154,7 +142,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
     });
 
-    // Add notification
     const notification: Notification = {
       id: Date.now().toString(),
       type: 'bid_placed',
@@ -166,9 +153,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
 
     dispatch({ type: 'ADD_NOTIFICATION', payload: notification });
-  };
+  }, [state.properties]);
 
-  const joinBiddingRoom = (propertyId: string) => {
+  const joinBiddingRoom = useCallback((propertyId: string) => {
     const property = state.properties.find(p => p.id === propertyId);
     if (!property) return;
 
@@ -181,9 +168,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
 
     dispatch({ type: 'SET_BIDDING_ROOM', payload: { propertyId, room } });
-  };
+  }, [state.properties]);
 
-  const leaveBiddingRoom = (propertyId: string) => {
+  const leaveBiddingRoom = useCallback((propertyId: string) => {
     const room = state.biddingRooms[propertyId];
     if (room) {
       dispatch({
@@ -194,26 +181,37 @@ export function AppProvider({ children }: { children: ReactNode }) {
         }
       });
     }
-  };
+  }, [state.biddingRooms]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     dispatch({ type: 'TOGGLE_THEME' });
-  };
+  }, []);
 
-  const markNotificationRead = (notificationId: string) => {
+  const markNotificationRead = useCallback((notificationId: string) => {
     dispatch({ type: 'MARK_NOTIFICATION_READ', payload: notificationId });
-  };
+  }, []);
+
+  // Memoize context value so consumers don't get new references unless state actually changes
+  const contextValue = useMemo(() => ({
+    ...state,
+    dispatch,
+    placeBid,
+    joinBiddingRoom,
+    leaveBiddingRoom,
+    toggleTheme,
+    markNotificationRead
+  }), [
+    state,
+    dispatch,
+    placeBid,
+    joinBiddingRoom,
+    leaveBiddingRoom,
+    toggleTheme,
+    markNotificationRead
+  ]);
 
   return (
-    <AppContext.Provider value={{
-      ...state,
-      dispatch,
-      placeBid,
-      joinBiddingRoom,
-      leaveBiddingRoom,
-      toggleTheme,
-      markNotificationRead
-    }}>
+    <AppContext.Provider value={contextValue}>
       {children}
     </AppContext.Provider>
   );

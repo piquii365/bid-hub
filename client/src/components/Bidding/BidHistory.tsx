@@ -1,14 +1,25 @@
-import React from 'react';
-import { Clock, User, TrendingUp, Crown, ArrowUp, ArrowDown } from 'lucide-react';
-import { Bid } from '../../types';
-import { useApp } from '../../context/AppContext';
+import React, { useEffect, useState } from "react";
+import {
+  Clock,
+  User,
+  TrendingUp,
+  Crown,
+  ArrowUp,
+  ArrowDown,
+} from "lucide-react";
+import { Bid } from "../../types";
+import { useApp } from "../../context/AppContext";
+import { bidsApi } from "../../api";
 
 interface BidHistoryProps {
   propertyId: string;
-  bidType: 'live' | 'sealed' | 'fixed';
+  bidType: "live" | "sealed" | "fixed";
 }
 
-const BidHistory: React.FC<BidHistoryProps> = ({ propertyId, bidType }: BidHistoryProps) => {
+const BidHistory: React.FC<BidHistoryProps> = ({
+  propertyId,
+  bidType,
+}: BidHistoryProps) => {
   const { theme, bids } = useApp();
   // Filter bids for this property and sort by timestamp (newest first)
   const propertyBids = bids
@@ -17,6 +28,21 @@ const BidHistory: React.FC<BidHistoryProps> = ({ propertyId, bidType }: BidHisto
       (a, b) =>
         new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
     );
+
+  const [testBids, setTestBids] = useState<Bid[]>([]);
+  useEffect(() => {
+    const fetchTestBids = async () => {
+      try {
+        const response = await bidsApi.getBids();
+        setTestBids(response);
+      } catch (error) {
+        console.error("Error fetching bid history:", error);
+      }
+    };
+
+    fetchTestBids();
+  }, [propertyId]);
+  console.log(testBids);
 
   const formatTimeAgo = (timestamp: string) => {
     const now = new Date();

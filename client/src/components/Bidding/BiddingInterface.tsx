@@ -37,7 +37,7 @@ export default function BiddingInterface({
       joinBiddingRoom(property.id);
       setHasJoined(true);
     }
-  }, [property.id, property.bidType, hasJoined]);
+  }, [property.id, property.bidType, joinBiddingRoom, hasJoined]);
 
   // Memoize formatTime to prevent recreation on every render
   const formatTime = useCallback((seconds: number) => {

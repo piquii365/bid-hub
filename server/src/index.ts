@@ -20,7 +20,11 @@ dotenv.config({ path: path.join(__dirname, "..", ".env") });
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+      "https://us-central1-auth-dev.cloudfunctions.net",
+      "http://localhost:8515",
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],

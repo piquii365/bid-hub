@@ -65,7 +65,7 @@ export default function Header() {
             <div className={"p-2.5"}>
               <img
                 src="/logo.png"
-                className="mix-blend-multiply w-10 h-auto"
+                className="w-10 h-auto"
                 alt="Infinity Investments"
               />
             </div>
